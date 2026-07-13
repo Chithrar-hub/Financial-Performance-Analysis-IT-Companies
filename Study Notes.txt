@@ -1,0 +1,32 @@
+Study Notes — What We Did, Simply
+1. Load Data
+
+Loaded the Excel file into Python using pandas
+
+2. Ratio Averages
+
+Used groupby('Company') to get each company's 5-year average for all 6 ratios
+
+3. Composite Score (Ranking)
+
+Ratios were on different scales (ROE 15-47%, Debt-Equity 0.08-0.24), so we first normalized everything to a 0-100 scale
+Formula: (value - min)/(max - min) × 100
+Reversed the formula for Debt-Equity (lower debt = better score)
+Used equal weights (16.67% each, for 6 ratios) to avoid bias
+Added everything up, averaged per company, and got the final ranking — TCS came #1
+
+4. Prediction
+
+Used LinearRegression() for each company to fit a trend line on 5 years of data
+Used model.predict([[2027]]) to estimate next year's profit
+Checked R² score to see how reliable each prediction was — TCS/Infosys strong, Wipro/Tech Mahindra weak
+
+5. Clustering
+
+Used StandardScaler() to bring all ratios to the same scale
+Used KMeans(n_clusters=3) to automatically split companies into 3 groups
+Labeled the group with the highest ROE as "High Performer"
+
+6. Charts
+
+Used matplotlib to create 3 charts (Ranking, Prediction, Clusters) side by side
